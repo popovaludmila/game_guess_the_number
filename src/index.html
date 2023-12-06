@@ -1,11 +1,72 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор мемов</title>
+    <title>Игра "Угадай число"</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
 </head>
+
 <body>
-    
+    <main>
+        <div class="wrapper">
+            <div class="container">
+                <h1 class="title">Игра «Угадай число»</h1>
+                <div class="select">
+                    <fieldset class="fieldset">
+                        <legend class="legend">Выберите диапазон</legend>
+
+                        <div class="input_wrapper">
+                            <label class="label" for="hundred">
+                                <input class="radio" type="radio" id="hundred" name="range" value="upToHundred" checked />
+                                От 1 до 100
+                            </label>
+                        </div>
+
+                        <div class="input_wrapper">
+                            <label class="label" for="thousand">
+                                <input class="radio" type="radio" id="thousand" name="range" value="upToThousand" />
+                                От 1 до 1000
+                            </label>
+                        </div>
+                    </fieldset>
+
+                </div>
+
+                <div class="inner">
+                    <div class="content">
+                        <h2 class="subtitle">Компьютер загадал число от <span class="subtitle_text">1 до 100</span> . Ваша задача его угадать.</h2>
+                        <div class="enter">
+                            <label class="number_label" for="number"> Введите число</label>
+                            <input class="input" type="text" name="number_value" id="number">
+                        </div>
+                        <p class="attempt"> Количество попыток: <span class="attempt_text">0</span></p>
+                        <div class="buttons">
+                            <button class="btn check"> Проверить </button>
+                            <button class="btn start"> Начать заново </button>
+                        </div>
+                        <p class="message hidden">Загаданное число 
+                            <span class="text_number ">больше 20</span> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <template id="hint-temp">
+        <div class="hint">
+            <p class="hint_text">Загаданное число - <span class="hint_span">нечетное</span> </p>
+        </div>
+    </template>
+
+    <template id="error-temp">
+        <p class="error">Введите</p>
+    </template>
+
+
+<script type="module" src="./js/main.js"></script>
 </body>
+
 </html>
