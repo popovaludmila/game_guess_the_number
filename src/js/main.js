@@ -23,37 +23,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const min = 1;
     let max = 100;
-    let number =  getRandomInteger(max);
-
-
+    let computerNumber =  getRandomInteger(max);
 
     ;[...radioInputs].forEach(input => {
         input.addEventListener('change', () => {
             max = document.querySelector('input[name="range"]:checked').value;
-            number = getRandomInteger(max);
+            rangeText.textContent = `от 1 до ${max}.`
+            computerNumber = getRandomInteger(max);
+            console.log(computerNumber)
             onStartAgain();
         })
     });
-    console.log(max);
-    const computerNumber = localStorage.getItem('number');
+    
+    computerNumber = localStorage.getItem('number');
 
     if (!computerNumber) {
-        saveNumberToStorage(number);
-
-        console.log(computerNumber)
+        saveNumberToStorage(computerNumber);
     }
 
     let countAttemt = 0;
     let userNumber;
 
-    const showHelpText = (number) => {
-        console.log(number);
-        if (number > computerNumber) {
-            help.textContent = `меньше  ${number}`;
+    const showHelpText = (userNumber) => {
+        if (userNumber > computerNumber) {
+            help.textContent = `меньше  ${userNumber}`;
             countAttemt++;
             attempt.textContent = countAttemt;
-        } else if (number < computerNumber) {
-            help.textContent = `больше  ${number}`;
+        } else if (userNumber < computerNumber) {
+            help.textContent = `больше  ${userNumber}`;
             countAttemt++;
             attempt.textContent = countAttemt;
         } else {
@@ -103,10 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const onStartAgain = () => {
         const hasError = document.querySelector('.error');
         const hasHint = document.querySelector('.hint');
+        computerNumber = getRandomInteger(max);
 
         helpText.classList.add('hidden');
         localStorage.clear();
-        saveNumberToStorage(number);
+        saveNumberToStorage(computerNumber);
 
         if (hasHint) {
             hasHint.remove();
