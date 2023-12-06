@@ -2,7 +2,7 @@ import { getRandomInteger, saveNumberToStorage, validateInputValue } from "./ser
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const rangeNumbersWrapper = document.querySelectorAll('.input_wrapper');
+    const radioInputs = document.querySelectorAll('.radio');
     const rangeText = document.querySelector('.subtitle_text');
     const attempt = document.querySelector('.attempt_text');
     const help = document.querySelector('.text_number');
@@ -21,28 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorContainer = templateError.cloneNode(true);
     const errorText = errorContainer.querySelector('.error');
 
-    const number = getRandomInteger(100);
+    const min = 1;
+    let max = 100;
+    let number =  getRandomInteger(max);
+
+
+
+    ;[...radioInputs].forEach(input => {
+        input.addEventListener('change', () => {
+            max = document.querySelector('input[name="range"]:checked').value;
+            number = getRandomInteger(max);
+            onStartAgain();
+        })
+    });
+    console.log(max);
     const computerNumber = localStorage.getItem('number');
 
     if (!computerNumber) {
         saveNumberToStorage(number);
+
         console.log(computerNumber)
     }
 
     let countAttemt = 0;
     let userNumber;
 
-    ;[...rangeNumbersWrapper].forEach(item => {
-        const input = item.querySelector('.radio');
-
-        const label = item.querySelector('.label');
-
-        input.addEventListener('change', () => {
-            input.checked = true;
-        })
-    });
-
     const showHelpText = (number) => {
+        console.log(number);
         if (number > computerNumber) {
             help.textContent = `меньше  ${number}`;
             countAttemt++;
@@ -61,8 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const onCheckBtnClick = () => {
         const hasError = document.querySelector('.error');
         const hasHint = document.querySelector('.hint');
-        const min = 1;
-        let max = 100;
 
         userNumber = inputNumber.value;
 
@@ -97,10 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const onStartBtnClick = () => {
+    const onStartAgain = () => {
         const hasError = document.querySelector('.error');
         const hasHint = document.querySelector('.hint');
-        const number = getRandomInteger(100);
 
         helpText.classList.add('hidden');
         localStorage.clear();
@@ -122,5 +124,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkBtn.addEventListener('click', onCheckBtnClick);
 
-    startBtn.addEventListener('click', onStartBtnClick);
+    startBtn.addEventListener('click', onStartAgain);
 })
