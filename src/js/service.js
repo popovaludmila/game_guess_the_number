@@ -31,7 +31,4 @@ const saveNumberToStorage = (number) => {
     return localStorage.setItem('number', number);
 };
 
-const deleteNumberOfStorage = (key) => {
-    return localStorage.removeItem(key);
-};
-export { getRandomInteger, saveNumberToStorage, deleteNumberOfStorage, validateInputValue };
+export { getRandomInteger, saveNumberToStorage, validateInputValue };
